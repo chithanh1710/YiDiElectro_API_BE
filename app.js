@@ -3,7 +3,7 @@ const fs = require("fs");
 const app = express();
 const cors = require("cors");
 
-app.use(cors({ origin: "https://yi-di-electro-api.vercel.app/" })); // Use this to allow all origins
+app.use(cors({ origin: "https://yi-di-electro-api.vercel.app" })); // Use this to allow all origins
 
 const dataCars = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
 const dataUsers = JSON.parse(fs.readFileSync("./data/dataUser.json", "utf-8"));
