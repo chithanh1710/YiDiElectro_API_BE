@@ -5,9 +5,6 @@ const cors = require("cors");
 
 app.use(cors({ origin: "https://yi-di-electro-api.vercel.app/" })); // Use this to allow all origins
 
-// or if you want to allow only specific origin
-app.use(cors({ origin: "http://localhost:5173" }));
-
 const dataCars = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
 const dataUsers = JSON.parse(fs.readFileSync("./data/dataUser.json", "utf-8"));
 
