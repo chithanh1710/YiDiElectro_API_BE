@@ -3,7 +3,7 @@ const fs = require("fs");
 const app = express();
 const cors = require("cors");
 
-app.use(cors()); // Use this to allow all origins
+app.use(cors({ origin: "https://yi-di-electro-api.vercel.app/" })); // Use this to allow all origins
 
 // or if you want to allow only specific origin
 app.use(cors({ origin: "http://localhost:5173" }));
