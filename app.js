@@ -1,9 +1,10 @@
 const express = require("express");
 const fs = require("fs");
+const nodemailer = require("nodemailer");
 const app = express();
 const cors = require("cors");
 
-app.use(cors({ origin: "http://localhost:5173" })); // Use this to allow all origins
+app.use(cors()); // Use this to allow all origins
 
 const dataCars = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
 const dataUsers = JSON.parse(fs.readFileSync("./data/dataUser.json", "utf-8"));
@@ -19,6 +20,7 @@ app.get("/api/v1/cars", (req, res) => {
     data: dataCars,
   });
 });
+
 app.get("/api/v1/cars/:type", (req, res) => {
   const dataByType = dataCars.filter((item) =>
     item.img.includes(req.params.type)
@@ -35,6 +37,39 @@ app.get("/api/v1/users", (req, res) => {
     status: "success",
     result: dataUsers.length,
     data: dataUsers,
+  });
+});
+
+app.post("/send-email/:email", (req, res) => {
+  const email = req.params.email;
+  const { name } = req.query;
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "chithanh171004@gmail.com",
+      pass: "njhc vdwx epxc olln",
+    },
+  });
+
+  const mailOptions = {
+    from: "chithanh171004@gmail.com",
+    to: email,
+    subject: "Cảm ơn bạn đã đăng ký!",
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.5;">
+        <h2 style="color: #4CAF50;">Cảm ơn bạn đã đăng ký!</h2>
+        <p>Chào bạn, ${name}</p>
+        <p>Cảm ơn bạn đã đăng ký nhận thông tin từ chúng tôi. Chúng tôi rất vui được có bạn đồng hành.</p>
+        <p style="color: #555;">Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi qua số điện thoại 0123456789.</p>
+      </div>
+    `,
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      return res.status(500).send(err.message);
+    }
+    res.status(200).json({ message: "Email sent successfully" });
   });
 });
 
