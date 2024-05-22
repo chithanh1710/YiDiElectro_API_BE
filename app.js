@@ -3,6 +3,7 @@ const fs = require("fs");
 const nodemailer = require("nodemailer");
 const app = express();
 const cors = require("cors");
+const html = fs.readFileSync("index.html", "utf-8");
 
 app.use(cors()); // Use this to allow all origins
 
@@ -10,7 +11,7 @@ const dataCars = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
 const dataUsers = JSON.parse(fs.readFileSync("./data/dataUser.json", "utf-8"));
 
 app.get("/", (req, res) => {
-  res.end("hello");
+  res.end(html);
 });
 
 app.get("/api/v1/cars", (req, res) => {
