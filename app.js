@@ -47,13 +47,13 @@ app.post("/send-email/:email", (req, res) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "chithanh171004@gmail.com",
-      pass: "njhc vdwx epxc olln",
+      user: "yidielectro@gmail.com",
+      pass: "sepx eyhn fddn fvui",
     },
   });
 
   const mailOptions = {
-    from: "chithanh171004@gmail.com",
+    from: "yidielectro@gmail.com",
     to: email,
     subject: "Cảm ơn bạn đã đăng ký!",
     html: `
