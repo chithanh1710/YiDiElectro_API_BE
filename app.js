@@ -11,13 +11,14 @@ const emailRouter = require("./router/emailRouters");
 
 // Middleware
 app.use(cors());
+app.use(express.json());
 
 ////////////////////////////////////////
 const URL_API = "/api/v1";
 
 // Middleware router
 app.use("/", homeRouter);
-app.use("/product", productRouter);
+app.use("/products", productRouter);
 app.use(`${URL_API}/cars`, carRouter);
 app.use(`${URL_API}/users`, userRouter);
 app.use("/send-email", emailRouter);
