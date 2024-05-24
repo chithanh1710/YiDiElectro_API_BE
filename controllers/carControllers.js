@@ -1,6 +1,5 @@
 const fs = require("fs");
 const dataCars = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
-
 exports.checkName = (req, res, next) => {
   const name = req.params.name;
   console.log(name);
