@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const allProduct = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
+const base = require("../base/base");
 
 router.route("/").get((req, res) => {
   const product = allProduct
@@ -164,7 +165,7 @@ router.route("/").get((req, res) => {
         
             const path = pathName ? "/" + pathName : "";
 
-            fetch('http://localhost:3000/api/v1/cars' + path, {
+            fetch(base.FULL_URL_API + '/cars' + path, {
                 method: METHOD,
                 headers: {
                     'Content-Type': 'application/json'
@@ -200,7 +201,7 @@ router.route("/").get((req, res) => {
           item.addEventListener('click',function(e) {
             e.preventDefault();
             const pathName = this.getAttribute('pathName');
-            fetch('http://localhost:3000/api/v1/cars/' + pathName, {
+            fetch(base.FULL_URL_API + '/cars/' + pathName, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json'
