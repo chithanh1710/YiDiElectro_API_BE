@@ -86,8 +86,8 @@ exports.createNewCar = (req, res) => {
 
 exports.editCar = (req, res) => {
   const editByName = req.params.name;
-  const editCar = req.body;
-  const newData = dataCars.map((item) => {
+  const editCar = Object.assign(req.body);
+  dataCars = dataCars.map((item) => {
     if (item.name === editByName) {
       return {
         brand: editCar.brand,
@@ -117,14 +117,13 @@ exports.editCar = (req, res) => {
     res.status(200).json({
       status: "success",
       message: "Edit car success",
-      data: newData,
     });
   });
 };
 
 exports.deleteCar = (req, res) => {
   const deleteByName = req.params.name;
-  const newData = dataCars.filter((item) => item.name !== deleteByName);
+  dataCars = dataCars.filter((item) => item.name !== deleteByName);
   fs.writeFile("./data/dataCar.json", JSON.stringify(newData), (err) => {
     if (err) {
       console.error(err.message);
