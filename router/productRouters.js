@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const fs = require("fs");
-const allProduct = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
 
 router.route("/").get((req, res) => {
+  const allProduct = JSON.parse(
+    fs.readFileSync("./data/dataCar.json", "utf-8")
+  );
   const product = allProduct
     .map(
       (product) =>
