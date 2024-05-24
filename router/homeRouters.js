@@ -1,18 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const html = fs.readFileSync("index.html", "utf-8");
+const tokenManager = require("../util/tokenManager");
 
 router.route("/").get((req, res) => {
   if (req.query.token == "0123456789") {
-    res.redirect("/dashboard");
+    tokenManager.setToken(req.query.token);
+    return res.send("Bạn cần có quyền truy cập trang");
   } else {
-    res.redirect("https://yidi-electro.vercel.app/admin");
+    return res.redirect("https://yidi-electro.vercel.app/admin");
   }
-});
-
-router.route("/dashboard").get((req, res) => {
-  res.end(html);
 });
 
 module.exports = router;
