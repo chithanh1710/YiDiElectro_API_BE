@@ -15,25 +15,27 @@ const tokenManager = require("./util/tokenManager");
 app.use(cors());
 app.use(express.json());
 
+function authenticateToken(req, res, next) {
+  // Nếu token hợp lệ, tiếp tục xử lý route
+  console.log(tokenManager.getToken());
+  if (!tokenManager.isValidToken("0123456789")) {
+    return res.send("Bạn cần có quyền truy cập");
+  }
+  next();
+}
+
 ////////////////////////////////////////
 const URL_API = "/api/v1";
 
 // Middleware router
 app.use("/", homeRouter);
+app.use(`${URL_API}/cars`, carRouter);
+app.use(`${URL_API}/users`, userRouter);
 
-app.use(function authenticateToken(req, res, next) {
-  // Nếu token hợp lệ, tiếp tục xử lý route
-  console.log(tokenManager.getToken());
-  if (!tokenManager.isValidToken("0123456789")) {
-    return res.redirect("https://yidi-electro.vercel.app/admin");
-  }
-  next();
-});
+app.use(authenticateToken);
 
 app.use("/dashboard", dashboardRouter);
 app.use("/products", productRouter);
-app.use(`${URL_API}/cars`, carRouter);
-app.use(`${URL_API}/users`, userRouter);
 app.use("/send-email", emailRouter);
 
 app.use("/logout", (req, res) => {
