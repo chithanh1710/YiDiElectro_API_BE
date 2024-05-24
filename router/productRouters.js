@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const allProduct = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
-const base = require("../base/base");
 
 router.route("/").get((req, res) => {
   const product = allProduct
@@ -153,6 +152,8 @@ router.route("/").get((req, res) => {
       </form>
 
       <script>
+      
+        const base = require("../base/base");
         const carForm = document.getElementById('carForm');
         function summitForm(METHOD,pathName) {
           carForm.addEventListener('submit', function(event) {
