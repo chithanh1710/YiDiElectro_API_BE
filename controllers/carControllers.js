@@ -105,7 +105,7 @@ exports.editCar = (req, res) => {
     return item;
   });
 
-  fs.writeFile("./data/dataCar.json", JSON.stringify(newData), (err) => {
+  fs.writeFile("./data/dataCar.json", JSON.stringify(dataCars), (err) => {
     if (err) {
       console.error(err.message);
       return res.status(404).json({
@@ -124,7 +124,7 @@ exports.editCar = (req, res) => {
 exports.deleteCar = (req, res) => {
   const deleteByName = req.params.name;
   dataCars = dataCars.filter((item) => item.name !== deleteByName);
-  fs.writeFile("./data/dataCar.json", JSON.stringify(newData), (err) => {
+  fs.writeFile("./data/dataCar.json", JSON.stringify(dataCars), (err) => {
     if (err) {
       console.error(err.message);
       return res.status(404).json({
