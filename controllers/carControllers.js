@@ -118,6 +118,7 @@ exports.editCar = (req, res) => {
     res.status(200).json({
       status: "success",
       message: "Edit car success",
+      data: newData,
     });
   });
 };
@@ -133,10 +134,9 @@ exports.deleteCar = (req, res) => {
         message: "Error 💥",
       });
     }
-
     res.status(200).json({
       status: "success",
-      message: "Delete carr success",
+      message: "Delete car success",
     });
   });
 };

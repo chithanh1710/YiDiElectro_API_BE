@@ -96,7 +96,7 @@ router.route("/").get((req, res) => {
   <p class="text">Không hỗ trợ màn hình nhỏ</p>
 
   <form id="carForm" style="width:100%;height:100vh;background-color:rgba(0,0,0,0.75);position:fixed;top:50%;left:50%;z-index:999;transform:translate(-50%,-50%);justify-content:center;align-items:center">
-        <div style="width:400px;height:500px;background-color:white;padding:20px;border-radius:10px;overflow-y: scroll;">
+        <div id="divForm" style="width:400px;height:500px;background-color:white;padding:20px;border-radius:10px;overflow-y: scroll;">
           <div>
               <h4 style="margin-bottom:6px">Brand</h4>
               <input required name="brand" value="Tesla" type="radio"/> <span style="margin-right:30px">Tesla</span>
@@ -153,6 +153,17 @@ router.route("/").get((req, res) => {
 
       <script>
         const carForm = document.getElementById('carForm');
+        const divForm = document.getElementById('divForm');
+
+        divForm.addEventListener('click', function(e) {
+          e.stopPropagation();
+        });
+
+        carForm.addEventListener('click', function(e) {
+          e.preventDefault();
+          carForm.style.display = "none";
+        });
+
         function summitForm(METHOD,pathName) {
           carForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -161,7 +172,7 @@ router.route("/").get((req, res) => {
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-        
+            const newData = {...data,img:data.img.name};
             const path = pathName ? "/" + pathName : "";
 
             fetch('https://yidielectro-api-be.onrender.com/api/v1/cars' + path, {
@@ -169,7 +180,7 @@ router.route("/").get((req, res) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(newData)
             })
             .then(response => response.json())
             .then(data => {
