@@ -152,8 +152,6 @@ router.route("/").get((req, res) => {
       </form>
 
       <script>
-      
-        const base = require("../base/base");
         const carForm = document.getElementById('carForm');
         function summitForm(METHOD,pathName) {
           carForm.addEventListener('submit', function(event) {
@@ -166,7 +164,7 @@ router.route("/").get((req, res) => {
         
             const path = pathName ? "/" + pathName : "";
 
-            fetch(base.FULL_URL_API + '/cars' + path, {
+            fetch('https://yidielectro-api-be.onrender.com/api/v1/cars' + path, {
                 method: METHOD,
                 headers: {
                     'Content-Type': 'application/json'
@@ -202,7 +200,7 @@ router.route("/").get((req, res) => {
           item.addEventListener('click',function(e) {
             e.preventDefault();
             const pathName = this.getAttribute('pathName');
-            fetch(base.FULL_URL_API + '/cars/' + pathName, {
+            fetch('https://yidielectro-api-be.onrender.com/api/v1/cars/' + pathName, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json'
