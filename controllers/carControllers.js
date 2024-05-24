@@ -1,8 +1,8 @@
 const fs = require("fs");
-const dataCars = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
+let dataCars = JSON.parse(fs.readFileSync("./data/dataCar.json", "utf-8"));
+
 exports.checkName = (req, res, next) => {
   const name = req.params.name;
-  console.log(name);
   const isName = dataCars.find((item) => item.name === name);
   if (!isName) {
     return res.status(404).json({

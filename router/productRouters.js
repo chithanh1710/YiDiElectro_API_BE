@@ -123,7 +123,7 @@ router.route("/").get((req, res) => {
           </div>
           <div>
               <h4 style="margin-bottom:6px;margin-top:12px;">Image</h4>
-              <input required name="img" style="padding:3px 6px" type="file">
+              <input required name="img" style="padding:3px 6px" type="text">
           </div>
           <div>
               <h4 style="margin-bottom:6px;margin-top:12px;">Year</h4>
@@ -172,7 +172,6 @@ router.route("/").get((req, res) => {
             formData.forEach((value, key) => {
                 data[key] = value;
             });
-            const newData = {...data,img:data.img.name};
             const path = pathName ? "/" + pathName : "";
 
             fetch('https://yidielectro-api-be.onrender.com/api/v1/cars' + path, {
@@ -180,7 +179,7 @@ router.route("/").get((req, res) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(newData)
+                body: JSON.stringify(data)
             })
             .then(response => response.json())
             .then(data => {
