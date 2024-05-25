@@ -51,18 +51,18 @@ app.use("/", homeRouter);
 
 app.use(`${URL_API}/cars`, carRouter);
 app.use(`${URL_API}/users`, userRouter);
+app.use("/send-email", emailRouter);
+
+app.use("/logout", (req, res) => {
+  tokenManager.clearToken();
+  currentSessionId = null;
+  return res.redirect("/");
+});
 
 app.use(authenticateToken);
 app.use(checkOneUser);
 
 app.use("/dashboard", dashboardRouter);
 app.use("/products", productRouter);
-app.use("/send-email", emailRouter);
-
-app.use("/logout", (req, res) => {
-  tokenManager.clearToken();
-  currentSessionId = null;
-  return res.send("Bạn đã đăng xuất");
-});
 
 module.exports = app;

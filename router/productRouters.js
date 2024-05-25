@@ -49,7 +49,7 @@ router.route("/").get((req, res) => {
     .text{
       display:none;
     }
-    @media (max-width:700px){
+    @media (max-width:900px){
       body *{
         display:none !important;
       }
@@ -73,9 +73,9 @@ router.route("/").get((req, res) => {
 </head>
 <body style="font-family:sans-serif">
   <div style="display:flex">
-    <div style="width:200px;background-color:#343a40;padding:20px;">
-      <button style="font-size:40px;font-weight:bold;width:120px;border:none;border-radius:10px;cursor:pointer;background-color:white;position:fixed;top:25px;left:30px">&larr;</button>
-      <button id="button-reset" style="font-size:20px;font-weight:bold;width:120px;border:none;border-radius:10px;cursor:pointer;background-color:white;position:fixed;top:85px;left:30px">Reset</button>
+    <div style="min-width:200px;background-color:#343a40;padding:20px;">
+      <a href="/dashboard" style="font-size:16px;font-weight:bold;width:180px;border:none;border-radius:10px;cursor:pointer;background-color:white;position:fixed;top:25px;left:10px;color:black;text-align:center;padding:10px;">Back to dashboard</a>
+      <button id="button-reset" style="font-size:16px;font-weight:bold;width:180px;border:none;border-radius:10px;cursor:pointer;background-color:white;position:fixed;top:85px;left:10px;padding:10px">Reset</button>
     </div>
     <div style="width:100%">
       <div style="display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:20px;">
@@ -95,7 +95,7 @@ router.route("/").get((req, res) => {
     </div>  
   </div>
 
-  <p class="text">Không hỗ trợ màn hình nhỏ</p>
+  <p style="text-align:center;line-height:1.8" class="text">Vui lòng phóng to màn hình ra để tiếp tục sử dụng</p>
 
   <form id="carForm" style="width:100%;height:100vh;background-color:rgba(0,0,0,0.75);position:fixed;top:50%;left:50%;z-index:999;transform:translate(-50%,-50%);justify-content:center;align-items:center">
         <div id="divForm" style="width:400px;height:500px;background-color:white;padding:20px;border-radius:10px;overflow-y: scroll;">
