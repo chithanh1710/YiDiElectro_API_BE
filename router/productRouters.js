@@ -76,7 +76,7 @@ router.route("/").get((req, res) => {
     <div style="min-width:200px;background-color:#343a40;padding:20px;">
       <a href="/dashboard" style="font-size:16px;font-weight:bold;width:180px;border:none;border-radius:10px;cursor:pointer;background-color:white;position:fixed;top:25px;left:10px;color:black;text-align:center;padding:10px;">Back to dashboard</a>
     </div>
-    <div style="width:100%">
+    <div style="width:100%;min-height:100vh">
       <div style="display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:20px;">
         <h2 style="padding:20px"></h2>
         <h2 style="padding:20px">Brand</h2>
