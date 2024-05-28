@@ -75,7 +75,6 @@ router.route("/").get((req, res) => {
   <div style="display:flex">
     <div style="min-width:200px;background-color:#343a40;padding:20px;">
       <a href="/dashboard" style="font-size:16px;font-weight:bold;width:180px;border:none;border-radius:10px;cursor:pointer;background-color:white;position:fixed;top:25px;left:10px;color:black;text-align:center;padding:10px;">Back to dashboard</a>
-      <button id="button-reset" style="font-size:16px;font-weight:bold;width:180px;border:none;border-radius:10px;cursor:pointer;background-color:white;position:fixed;top:85px;left:10px;padding:10px">Reset</button>
     </div>
     <div style="width:100%">
       <div style="display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:20px;">
@@ -176,7 +175,7 @@ router.route("/").get((req, res) => {
             });
             const path = pathName ? "/" + pathName : "";
 
-            fetch('https://yidielectro-api-be.onrender.com/api/v1/cars' + path, {
+            fetch('http://localhost:3000/api/v1/cars' + path, {
                 method: METHOD,
                 headers: {
                     'Content-Type': 'application/json'
@@ -185,6 +184,7 @@ router.route("/").get((req, res) => {
             })
             .then(response => response.json())
             .then(data => {
+                location.reload();
                 console.log('Success:', data);
             })
             .catch((error) => {
@@ -212,7 +212,7 @@ router.route("/").get((req, res) => {
           item.addEventListener('click',function(e) {
             e.preventDefault();
             const pathName = this.getAttribute('pathName');
-            fetch('https://yidielectro-api-be.onrender.com/api/v1/cars/' + pathName, {
+            fetch('http://localhost:3000/api/v1/cars/' + pathName, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json'
@@ -220,16 +220,13 @@ router.route("/").get((req, res) => {
             })
             .then(response => response.json())
             .then(data => {
+                location.reload();
                 console.log('Success:', data);
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
           })
-        });
-
-        document.getElementById('button-reset').addEventListener('click',function(e) {
-          location.reload();
         });
         
       </script>
