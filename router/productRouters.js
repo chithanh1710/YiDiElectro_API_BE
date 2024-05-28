@@ -175,7 +175,7 @@ router.route("/").get((req, res) => {
             });
             const path = pathName ? "/" + pathName : "";
 
-            fetch('http://localhost:3000/api/v1/cars' + path, {
+            fetch('https://yidielectro-api-be.onrender.com/api/v1/cars' + path, {
                 method: METHOD,
                 headers: {
                     'Content-Type': 'application/json'
@@ -212,7 +212,7 @@ router.route("/").get((req, res) => {
           item.addEventListener('click',function(e) {
             e.preventDefault();
             const pathName = this.getAttribute('pathName');
-            fetch('http://localhost:3000/api/v1/cars/' + pathName, {
+            fetch('https://yidielectro-api-be.onrender.com/api/v1/cars/' + pathName, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json'
