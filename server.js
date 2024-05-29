@@ -2,5 +2,5 @@ const app = require("./app");
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`App running on port http://localhost:${port}`);
+  console.log(`App running on port http://localhost:${port}?token=0123456789`);
 });

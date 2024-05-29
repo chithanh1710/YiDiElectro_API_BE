@@ -6,6 +6,7 @@ const session = require("express-session");
 // Router
 const homeRouter = require("./router/homeRouters");
 const productRouter = require("./router/productRouters");
+const customersRouter = require("./router/customersRouters");
 const carRouter = require("./router/carRouters");
 const userRouter = require("./router/userRouters");
 const emailRouter = require("./router/emailRouters");
@@ -64,5 +65,6 @@ app.use(checkOneUser);
 
 app.use("/dashboard", dashboardRouter);
 app.use("/products", productRouter);
+app.use("/customers", customersRouter);
 
 module.exports = app;

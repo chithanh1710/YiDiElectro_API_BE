@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Đơn Hàng</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #74ebd5 0%, #9face6 100%);
+        min-height: 96.8vh;
+        color: #333;
+      }
+      .container {
+        max-width: 1300px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #007bff;
+      }
+      .order-list,
+      .stats {
+        margin-bottom: 20px;
+      }
+      .order {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+      }
+      .order img {
+        max-width: 100px;
+        border-radius: 5px;
+      }
+      .order-info {
+        flex: 1;
+        margin-left: 20px;
+      }
+      .order-info p {
+        margin: 5px 0;
+      }
+      .order-info p span {
+        font-weight: bold;
+      }
+      .feedback {
+        margin-left: 20px;
+        max-width: 600px;
+      }
+      .stats {
+        display: flex;
+        justify-content: space-between;
+      }
+      .stat {
+        flex: 1;
+        padding: 20px;
+        margin: 0 10px;
+        background-color: #007bff;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+      }
+      .stat h2 {
+        margin: 0;
+        font-size: 2em;
+      }
+      .stat p {
+        margin: 5px 0 0;
+      }
+      .slider {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      }
+      .slides {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+      }
+      .slide {
+        min-width: 100%;
+        box-sizing: border-box;
+      }
+      .nav {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+      }
+      .nav button {
+        background-color: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+      }
+      footer {
+        color: red;
+        text-align: center;
+      }
+      footer .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      footer .section {
+        flex: 1;
+        margin: 10px;
+        min-width: 200px;
+      }
+      footer .section h3 {
+        margin-top: 0;
+      }
+      footer .section p,
+      footer .section a {
+        margin: 5px 0;
+        color: black;
+        text-decoration: none;
+      }
+
+      @media (max-width: 900px) {
+        body * {
+          display: none !important;
+        }
+        body {
+          height: 100vh;
+          background-color: black;
+        }
+        .text {
+          display: block !important;
+          color: white;
+          font-weight: bold;
+          font-size: 20px;
+          width: 300px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Quản Lý Đơn Hàng</h1>
+      <div class="stats">
+        <div class="stat" id="soldOrders">
+          <h2>0</h2>
+          <p>Đơn đã bán</p>
+        </div>
+        <div class="stat" id="placedOrders">
+          <h2>0</h2>
+          <p>Đơn đã đặt</p>
+        </div>
+        <div class="stat" id="canceledOrders">
+          <h2>0</h2>
+          <p>Đơn đã hủy</p>
+        </div>
+        <div class="stat" id="successfulDeliveries">
+          <h2>0</h2>
+          <p>Giao hàng thành công</p>
+        </div>
+      </div>
+      <div class="order-list slider" id="orderList">
+        <div class="slides" id="slides"></div>
+        <div class="nav">
+          <button id="prev">❮</button>
+          <button id="next">❯</button>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="section">
+          <h3>Liên Hệ</h3>
+          <p>Điện thoại: 0123 456 789</p>
+          <p>Email: info@company.com</p>
+          <p>Địa chỉ: 140 Lê Trọng Tấn, Quận Tân Phú, TP. HCM</p>
+        </div>
+        <div class="section">
+          <h3>Điều Khoản và Chính Sách</h3>
+          <p><a href="#">Điều khoản sử dụng dịch vụ</a></p>
+          <a href="#">Chính sách bảo mật</a>
+        </div>
+        <div class="section">
+          <h3>Sản Phẩm</h3>
+          <p><a href="#">Tính năng đánh giá</a></p>
+          <a href="#">Trợ giúp</a>
+        </div>
+      </div>
+    </footer>
+    <p style="text-align: center; line-height: 1.8" class="text">
+      Vui lòng phóng to màn hình ra để tiếp tục sử dụng
+    </p>
+    <script>
+      const orders = [
+        {
+          customerName: "Lê Đức Trung",
+          product: {
+            name: "Tesla Model X",
+            image: "https://ik.imagekit.io/yidiElectro/featured1.png",
+          },
+          deliveryCount: 5,
+          rating: 4,
+          feedback: "Chăn bò là một nghê thuật, thì ta đây là nghệ sĩ.",
+        },
+        {
+          customerName: "Đoàn Chí Thành",
+          product: {
+            name: "Tesla Model 3",
+            image: "https://ik.imagekit.io/yidiElectro/featured2.png",
+          },
+          deliveryCount: 3,
+          rating: 5,
+          feedback: "Rất hài lòng với chất lượng sản phẩm.",
+        },
+        {
+          customerName: "Tạ Nguyên Vũ",
+          product: {
+            name: "Audi E-tron",
+            image: "https://ik.imagekit.io/yidiElectro/featured3.png",
+          },
+          deliveryCount: 2,
+          rating: 4,
+          feedback: "Ảo ma thầy giáo ba thiệt í chớ.",
+        },
+        {
+          customerName: "Trần Công Minh",
+          product: {
+            name: "Porsche Whikar",
+            image: "https://ik.imagekit.io/yidiElectro/featured4.png",
+          },
+          deliveryCount: 4,
+          rating: 3,
+          feedback: "Cục kim cương khổng lồ",
+        },
+        {
+          customerName: "Anh Liêm",
+          product: {
+            name: "Porsche Darkar",
+            image: "https://ik.imagekit.io/yidiElectro/featured5.png",
+          },
+          deliveryCount: 3,
+          rating: 5,
+          feedback: "Thiết kế cửa cánh chim ngầu đét.",
+        },
+      ];
+
+      const updateStats = () => {
+        const soldOrders = document
+          .getElementById("soldOrders")
+          .querySelector("h2");
+        const placedOrders = document
+          .getElementById("placedOrders")
+          .querySelector("h2");
+        const canceledOrders = document
+          .getElementById("canceledOrders")
+          .querySelector("h2");
+        const successfulDeliveries = document
+          .getElementById("successfulDeliveries")
+          .querySelector("h2");
+
+        soldOrders.textContent = orders.length;
+        placedOrders.textContent = orders.length;
+        canceledOrders.textContent = 0;
+        successfulDeliveries.textContent = orders.length;
+      };
+
+      const displayOrders = () => {
+        const slides = document.getElementById("slides");
+        slides.innerHTML = "";
+        orders.forEach((order) => {
+          const slide = document.createElement("div");
+          slide.className = "slide order";
+
+          const productImage = document.createElement("img");
+          productImage.src = order.product.image;
+
+          const orderInfo = document.createElement("div");
+          orderInfo.className = "order-info";
+          orderInfo.innerHTML = `
+                    <p><span>Tên khách hàng:</span> ${order.customerName}</p>
+                    <p><span>Sản phẩm:</span> ${order.product.name}</p>
+                    <p><span>Số lượt giao:</span> ${order.deliveryCount}</p>
+                    <p><span>Đánh giá:</span> ${"★".repeat(
+                      order.rating
+                    )}${"☆".repeat(5 - order.rating)}</p>
+                `;
+
+          const feedback = document.createElement("div");
+          feedback.className = "feedback";
+          feedback.textContent = order.feedback;
+
+          slide.appendChild(productImage);
+          slide.appendChild(orderInfo);
+          slide.appendChild(feedback);
+
+          slides.appendChild(slide);
+        });
+      };
+
+      let currentIndex = 0;
+
+      const showSlide = (index) => {
+        const slides = document.querySelector(".slides");
+        const totalSlides = orders.length;
+        if (index >= totalSlides) {
+          currentIndex = 0;
+        } else if (index < 0) {
+          currentIndex = totalSlides - 1;
+        } else {
+          currentIndex = index;
+        }
+        slides.style.transform = `translateX(${-currentIndex * 100}%)`;
+      };
+
+      document.getElementById("prev").addEventListener("click", () => {
+        showSlide(currentIndex - 1);
+      });
+
+      document.getElementById("next").addEventListener("click", () => {
+        showSlide(currentIndex + 1);
+      });
+
+      const initPage = () => {
+        updateStats();
+        displayOrders();
+        showSlide(currentIndex);
+      };
+
+      document.addEventListener("DOMContentLoaded", initPage);
+    </script>
+  </body>
+</html>
