@@ -21,6 +21,9 @@ app.use(
     secret: "yidielectro-key",
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: true,
+    },
   })
 );
 
