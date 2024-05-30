@@ -23,9 +23,6 @@ app.use(
     secret: "yidielectro-key",
     resave: false,
     saveUninitialized: true,
-    cookie: {
-      secure: true,
-    },
   })
 );
 
@@ -37,6 +34,11 @@ function authenticateToken(req, res, next) {
 }
 
 function checkOneUser(req, res, next) {
+  console.log(
+    `${currentSessionId} !== ${req.session.id} : ${
+      currentSessionId !== req.session.id
+    }`
+  );
   if (currentSessionId && currentSessionId !== req.session.id) {
     return res.send("Chỉ một người có thể vào tại một thời điểm");
   }
