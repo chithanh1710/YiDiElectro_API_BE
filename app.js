@@ -3,6 +3,8 @@ const app = express();
 const cors = require("cors");
 const session = require("express-session");
 
+let currentSessionId = null;
+
 // Router
 const homeRouter = require("./router/homeRouters");
 const productRouter = require("./router/productRouters");
@@ -26,8 +28,6 @@ app.use(
     },
   })
 );
-
-let currentSessionId = null;
 
 function authenticateToken(req, res, next) {
   if (!tokenManager.isValidToken("0123456789")) {
