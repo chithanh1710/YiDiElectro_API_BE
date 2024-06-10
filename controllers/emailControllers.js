@@ -15,11 +15,14 @@ exports.sendEmail = (req, res) => {
 
   if (!name) {
     return fetch(`https://todoappbe-598e.onrender.com/user?email=${email}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Account not found");
+      .then((response) => {
+        if (!response.ok) {
+          return res.status(404).json({
+            status: "fail",
+            message: "Account not found",
+          });
         }
-        return res.json();
+        return response.json();
       })
       .then((data) => {
         mailOptions = {
@@ -39,8 +42,11 @@ exports.sendEmail = (req, res) => {
           res.status(200).json({ message: "Password sent successfully" });
         });
       })
-      .catch((err) => {
-        throw new Error("Account not found");
+      .catch(() => {
+        return res.status(404).json({
+          status: "fail",
+          message: "Account not found",
+        });
       });
   } else {
     mailOptions = {
